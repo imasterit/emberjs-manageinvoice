@@ -1,24 +1,48 @@
 <div class="invoices-index-page">
   <h2>Invoices</h2>
 
-  <div class="dfc">
-    <div class="dfc {{if findInvoicesTask.isRunning "loading-spinner"}}">
-      {{#each invoices as |invoice|}}
-        <div class="df-jcsb-aic">
-          <div>{{moment-format invoice.date "YYYY-MM-DD"}}</div>
-          <div>{{invoice.amount}}</div>
+  <div class="df">
+    <div>
+      {{#power-calendar
+        class="demo-calendar-small margin-top-20"
+        center=center
+        selected=selected
+        onCenterChange=(action (mut center) value="moment")
+        onSelect=(action "updateDay" value="moment")
+      as |calendar|}}
+        <div class={{if findInvoicesTask.isRunning "loading-spinner"}}>
+          {{calendar.nav}}
+          {{calendar.days}}
         </div>
-      {{else}}
-        {{#if findInvoicesTask.isIdle}}
-          <h2>Not found records</h2>
-        {{/if}}
-      {{/each}}
+      {{/power-calendar}}
     </div>
 
-    {{#if invoices}}
-      <p>
-        <strong>Total: {{totalAmount}}</strong>
-      </p>
-    {{/if}}
+    <div class="dfc fg-1 margin-left-20">
+      <h3>
+        For:
+        {{#if selected}}
+          {{moment-format selected "YYYY-MM-DD"}}
+          {{fa-icon "window-close" click=(action "updateDay" selected)}}
+        {{else}}
+          All dates
+        {{/if}}
+      </h3>
+
+      <div class="dfc fg-1 {{if findInvoicesTask.isRunning "loading-spinner"}}">
+        {{#each invoices as |invoice|}}
+          {{invoice-list-row invoice=invoice}}
+        {{else}}
+          {{#if findInvoicesTask.isIdle}}
+            <h2>Not found records</h2>
+          {{/if}}
+        {{/each}}
+      </div>
+
+      {{#if invoices}}
+        <p>
+          <strong>Total: {{totalAmount}}</strong>
+        </p>
+      {{/if}}
+    </div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.
@@ -25,5 +27,17 @@ export default function() {
   */
 
 
-  this.get('/invoices');
+  this.get('/invoices', function (schema, request) {
+    let invoicesByDateAsc;
+
+    if (request.queryParams.date) {
+      invoicesByDateAsc = schema.invoices.where({ date: request.queryParams.date });
+    } else {
+      invoicesByDateAsc = schema.invoices.all();
+    }
+
+    return invoicesByDateAsc.sort((a, b) => {
+      return moment(a.date) - moment(b.date);
+    });
+  });
 }

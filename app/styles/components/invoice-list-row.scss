@@ -1,0 +1,7 @@
+.invoice-list-row {
+  height: 50px;
+  padding: 10px;
+}
+.invoice-list-row:nth-child(odd) {
+  background-color: #F5F7FA;
+}

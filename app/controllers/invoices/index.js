@@ -1,17 +1,37 @@
 import Controller from '@ember/controller';
+import QueryParams from 'ember-parachute';
+import moment from 'moment';
 import { computed } from '@ember/object';
+import { or } from '@ember/object/computed';
 import { task } from "ember-concurrency";
 import { inject as service } from '@ember/service';
 
 
-export default Controller.extend({
+export const myQueryParams = new QueryParams({
+  selected: {
+    as: 'date',
+    defaultValue: null,
+    refresh: true,
+
+    serialize(value) {
+      let r = moment(value).isValid()
+        ? moment(value).format('YYYY-MM-DD')
+        : value;
+      return r;
+    },
+    deserialize(value) {
+      let r = moment(value).isValid()
+        ? moment(value)
+        : null;
+      return r;
+    }
+  }
+});
+
+export default Controller.extend(myQueryParams.Mixin, {
   store: service(),
   invoices: null,
-
-  init() {
-    this._super(...arguments);
-    this.get('findInvoicesTask').perform();
-  },
+  queryParamsChanged: or('queryParamsState.{date}.changed'),
 
   totalAmount: computed('invoices.[]', function () {
     return this.get('invoices').reduce((previousValue, item) => {
@@ -19,11 +39,43 @@ export default Controller.extend({
     }, 0);
   }),
 
+  setup() {
+    this.get('findInvoicesTask').perform();
+  },
+
+  queryParamsDidChange({ shouldRefresh }) {
+    if (shouldRefresh) {
+      this.get('findInvoicesTask').perform();
+    }
+  },
+
   findInvoicesTask: task(function* () {
+    const selected = this.get('selected');
+    const query = {};
+
+    if (selected) {
+      query.date = selected.format('YYYY-MM-DD');
+    }
+
     yield this.get('store')
-      .findAll('invoice')
+      .query('invoice', query)
       .then(invoices => {
         this.set('invoices', invoices);
       });
-  }).drop()
+  }).drop(),
+
+  actions: {
+    updateDay(_moment) {
+      const selected = this.get('selected');
+
+      if (selected) {
+        if (selected.format('YYYY-MM-DD') === _moment.format('YYYY-MM-DD')) {
+          this.set('selected', null);
+          return;
+        }
+      }
+
+      this.set('selected', moment(_moment.format('YYYY-MM-DD')));
+    }
+  }
 });
