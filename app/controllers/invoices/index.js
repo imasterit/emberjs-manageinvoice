@@ -14,16 +14,14 @@ export const myQueryParams = new QueryParams({
     refresh: true,
 
     serialize(value) {
-      let r = moment(value).isValid()
+      return moment(value).isValid()
         ? moment(value).format('YYYY-MM-DD')
         : value;
-      return r;
     },
     deserialize(value) {
-      let r = moment(value).isValid()
+      return moment(value).isValid()
         ? moment(value)
         : null;
-      return r;
     }
   }
 });
