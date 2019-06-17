@@ -36,8 +36,8 @@ export default function() {
       invoicesByDateAsc = schema.invoices.all();
     }
 
-    return invoicesByDateAsc.sort((a, b) => {
-      return moment(a.date) - moment(b.date);
-    });
+    return invoicesByDateAsc.sort((a, b) => moment(a.date) - moment(b.date));
   });
+
+  this.post('/invoices');
 }

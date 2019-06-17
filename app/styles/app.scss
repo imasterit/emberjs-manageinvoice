@@ -3,6 +3,7 @@
 @import "./components/invoice-list-row";
 
 @import "./pages/invoices-index-page";
+@import "./pages/invoices-new-page";
 
 .demo-calendar-small {
   @include ember-power-calendar($cell-size: 30px);
@@ -16,7 +17,7 @@
 
 body {
   background-color: #ffffff;
-  font-family: "Courier New";
+  font-family: "Courier New", "Courier", "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
   box-sizing: border-box;
 }
 
@@ -41,40 +42,90 @@ body {
   align-items: center;
 }
 
-.margin-left-20 {
-  margin-left: 20px;
+.btn-primary {
+  display: inline-flex;
+  height: 56px;
+  background-color: #71B03E;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  border-radius: 4px;
+  box-shadow: #c4c4c4 0 2px 6px 2px;
+  cursor: pointer;
+  transition: .2s;
+  text-decoration: none;
+  padding: 0 20px;
+  margin: 20px 0;
+
+  &:active  {
+    background-color: darken(#71B03E, 10%);
+  }
 }
-.margin-top-20 {
-  margin-top: 20px;
+
+.btn-secondary {
+  @extend .btn-primary;
+  background-color: #cccccc;
+
+  &:active  {
+    background-color: darken(#cccccc, 10%);
+  }
 }
 
 .loading-spinner {
   position: relative;
+
+  &:before {
+    content: "";
+    z-index: 1;
+    position: absolute;
+    opacity: .5;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    border: 4px solid #71B03E;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+  }
+
+  &:after {
+    content: "";
+    z-index: 998;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
-.loading-spinner:before {
-  content: "";
-  z-index: 1;
-  position: absolute;
-  opacity: .5;
-  top: calc(50% - 20px);
-  left: calc(50% - 20px);
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  border: 4px solid #71B03E;
-  border-bottom-color: transparent;
-  border-radius: 50%;
+.btn-loading-spinner {
+  @extend .loading-spinner;
+
+  &:before {
+    opacity: 1;
+    top: calc(50% - 16px - 4px);
+    left: calc(50% - 16px - 4px);
+    width: 32px;
+    height: 32px;
+    border: 4px solid #ffffff;
+    border-bottom-color: transparent;
+  }
 }
 
-.loading-spinner:after {
-  content: "";
-  z-index: 998;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+.margin-right-20 {
+  margin-right: 20px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
 }
 
 @keyframes spin {

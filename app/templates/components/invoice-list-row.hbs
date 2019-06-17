@@ -1,2 +1,2 @@
 <div>{{moment-format invoice.date "YYYY-MM-DD"}}</div>
-<div>{{invoice.amount}}</div>
+<div>{{if invoice.amount invoice.amount "-"}}</div>

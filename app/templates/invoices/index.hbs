@@ -1,6 +1,8 @@
 <div class="invoices-index-page">
   <h2>Invoices</h2>
 
+  {{#link-to "invoices.new" class="btn-primary"}}New Invoice{{/link-to}}
+
   <div class="df">
     <div>
       {{#power-calendar
@@ -10,7 +12,7 @@
         onCenterChange=(action (mut center) value="moment")
         onSelect=(action "updateDay" value="moment")
       as |calendar|}}
-        <div class={{if findInvoicesTask.isRunning "loading-spinner"}}>
+        <div class={{if findInvoicesTask.isRunning "btn-loading-spinner"}}>
           {{calendar.nav}}
           {{calendar.days}}
         </div>
