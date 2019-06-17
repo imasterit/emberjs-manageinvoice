@@ -2,23 +2,23 @@
   <h2>Invoices</h2>
 
   <div class="dfc">
-      <div class="dfc {{if findInvoicesTask.isRunning "loading-spinner"}}">
-        {{#each invoices as |invoice|}}
-          <div class="df-jcsb-aic">
-            <div>{{moment-format invoice.date "YYYY-MM-DD"}}</div>
-            <div>{{invoice.amount}}</div>
-          </div>
-        {{else}}
-          {{#if findInvoicesTask.isIdle}}
-            <h2>Not found records</h2>
-          {{/if}}
-        {{/each}}
-      </div>
+    <div class="dfc {{if findInvoicesTask.isRunning "loading-spinner"}}">
+      {{#each invoices as |invoice|}}
+        <div class="df-jcsb-aic">
+          <div>{{moment-format invoice.date "YYYY-MM-DD"}}</div>
+          <div>{{invoice.amount}}</div>
+        </div>
+      {{else}}
+        {{#if findInvoicesTask.isIdle}}
+          <h2>Not found records</h2>
+        {{/if}}
+      {{/each}}
+    </div>
 
-      {{#if invoices}}
-        <p>
-          <strong>Total: {{totalAmount}}</strong>
-        </p>
-      {{/if}}
+    {{#if invoices}}
+      <p>
+        <strong>Total: {{totalAmount}}</strong>
+      </p>
+    {{/if}}
   </div>
 </div>

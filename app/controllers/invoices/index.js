@@ -1,7 +1,5 @@
 import Controller from '@ember/controller';
-// import moment from 'moment';
 import { computed } from '@ember/object';
-// import { or } from '@ember/object/computed';
 import { task } from "ember-concurrency";
 import { inject as service } from '@ember/service';
 
