@@ -4,6 +4,7 @@
 
 @import "./pages/invoices-index-page";
 @import "./pages/invoices-new-page";
+@import "./pages/invoices-edit-page";
 
 .demo-calendar-small {
   @include ember-power-calendar($cell-size: 30px);

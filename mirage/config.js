@@ -40,4 +40,6 @@ export default function() {
   });
 
   this.post('/invoices');
+  this.get('/invoices/:id');
+  this.patch('/invoices/:id');
 }
