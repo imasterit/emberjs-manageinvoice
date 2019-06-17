@@ -1,7 +1,7 @@
 <div class="df-jcsb-aic">
   <div>
     <h4>Date:</h4>
-    <p>{{moment-format (if invoice.date invoice.date (now)) "DD-MM-YYYY"}}</p>
+    <p>{{moment-format invoice.date "DD-MM-YYYY"}}</p>
 
     <h4>Amount:</h4>
     <p>{{input value=invoice.amount type="number"}}</p>
