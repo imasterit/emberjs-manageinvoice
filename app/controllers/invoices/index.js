@@ -63,6 +63,10 @@ export default Controller.extend(myQueryParams.Mixin, {
   }).drop(),
 
   actions: {
+    destroyInvoice(invoice) {
+      invoice.destroyRecord();
+    },
+
     updateDay(_moment) {
       const selected = this.get('selected');
 

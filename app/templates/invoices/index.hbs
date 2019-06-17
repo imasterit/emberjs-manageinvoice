@@ -32,7 +32,9 @@
 
       <div class="dfc fg-1 {{if findInvoicesTask.isRunning "loading-spinner"}}">
         {{#each invoices as |invoice|}}
-          {{invoice-list-row invoice=invoice}}
+          {{invoice-list-row
+            invoice=invoice
+            destroyInvoice=(action "destroyInvoice")}}
         {{else}}
           {{#if findInvoicesTask.isIdle}}
             <h2>Not found records</h2>

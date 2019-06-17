@@ -4,4 +4,8 @@
   {{#link-to "invoices.edit" invoice tagName="button" class="invoice-list-row__btn"}}
     {{fa-icon "pencil"}}
   {{/link-to}}
+
+  <button {{action destroyInvoice invoice}} class="invoice-list-row__btn">
+    {{fa-icon "close"}}
+  </button>
 </div>
