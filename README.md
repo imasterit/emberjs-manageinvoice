@@ -1,3 +1,5 @@
+# invoices
+
 Create an "Invoices Tracker" application
 
 ### Features (not all have to be implemented, choose whichever you feel are more important):
@@ -14,12 +16,6 @@ Create an "Invoices Tracker" application
 * the UI doesn't have to look sharp, or be polished. We are however interested in your styling skills
 * we are not interested in a feature complete application
 * we are not interested in backend. In-memory, in-page is more than enough
-
-
-# invoices
-
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
 
 ## Prerequisites
 
