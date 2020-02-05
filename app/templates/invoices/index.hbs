@@ -36,7 +36,12 @@
           destroyInvoice=(action "destroyInvoice")}}
       {{else}}
         {{#if findInvoicesTask.isIdle}}
-          <h2>Nothing found for: {{moment-format selected "YYYY-MM-DD"}}</h2>
+          <h2>
+            Nothing found
+            {{#if selected}}
+              for: {{moment-format selected "YYYY-MM-DD"}}
+            {{/if}}
+          </h2>
         {{/if}}
       {{/each}}
     </div>
